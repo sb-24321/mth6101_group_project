@@ -1,4 +1,4 @@
-#' Creates a binary classifier, that is dependent on a threshold.
+#' Creates a binary classifier that is dependent on a threshold.
 
 # Load `lsa` library =====================================================================
 library(lsa) # contains the `cosine` function to find similarity.
