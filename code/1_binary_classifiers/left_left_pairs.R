@@ -15,19 +15,21 @@ left_left_pairs <- function(threshold = 0.5){
   left_features <- subset(features, features$orientation == 'left')[-c(2:4)] 
   turtle_identities <- unique(left_features$identity)
   
-  # Stores all the data in a csv
+  # create a results table
   results <- data.frame(
                         Turtle = character(),
                         Cosine_Sim = numeric(),
-                        Class = integer()
+                        Y_true = integer(),
+                        Y_pred = integer()
   )
-
+  
+  # Iterates through all same turtle pairs.
   for (turtle_identity in turtle_identities){
 
     # Creates a feature of two rows; same turtle, but different years.
     same_turtle <- (subset(left_features, identity == turtle_identity)[,-1])
 
-    # Extract A and B 
+    # Extract A and B, our two features.
     A <- as.numeric(same_turtle[1,])
     B <- as.numeric(same_turtle[2,])
 
@@ -35,7 +37,8 @@ left_left_pairs <- function(threshold = 0.5){
     results <- rbind(results, data.frame(
                                          Turtle = turtle_identity,
                                          Cosine_Sim = round(cosine(A, B), 3),
-                                         Class = as.integer(cosine(A, B) > threshold)
+                                         Y_true = 1,
+                                         Y_pred = as.integer(cosine(A, B) > threshold)
                                          ))
 
   }
