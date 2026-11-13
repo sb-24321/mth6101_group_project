@@ -9,13 +9,12 @@ library(stringr) # string manipulation to extract the years
 #' Implementation of the threshold dependent binary classifier. We will use the decision
 #' rule of s(x, y) > T, where s(x, y) is the cosine similarity and T is our threshold.
 
-# Generate Pairs =========================================================================
 #' Need to use the classifier against two types of pairs of images: left-left and right-
 #' left, both taken in different years.
 
-classify <- function(data, orientation_1, orientation_2, threshold){
+#' TODO: right-left pairs.
 
-  # data <- data[c(1, 3, 4)] # FOR TESTING PURPOSES
+classify <- function(data, orientation_1, orientation_2, threshold){
 
   # Same side matching, so we use left-left.
   if (orientation_1 == orientation_2){
