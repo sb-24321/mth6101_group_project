@@ -23,22 +23,41 @@ confusion_matrix <- function(folder_name){
   # # Positive  # Negative # 
   # ------------------------
   #
-
+  
   cat("Creating confusion matrix...\n")
   confusion_mat <- table(
     Actual = factor(data$Y_true, levels = c(1, 0)),
     Predicted = factor(data$Y_pred, levels = c(1, 0))
   )
 
+  # Measure Performance.
+  performance_details <- data.frame(
+                                    True_Positive_Rate  = numeric(), 
+                                    False_Positive_Rate = numeric(),
+                                    False_Negative_Rate = numeric(),
+                                    True_Negative_Rate  = numeric(),
+                                    Precision = numeric(),
+                                    Negative_predictive_value = numeric(),
+                                    Accuracy   = numeric(),
+                                    F1_score   = numeric(),
+                                    Error_rate = numeric(),
+  )
+
+
  
-  cat("Saving confusion matrix...\n")
   filepath <- paste0("./outputs/1_binary_classifier_outputs/", folder_name)
+
+  cat("Saving confusion matrix...\n")
   filename <- paste0("/confusion_matrix.csv")
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
   write.csv(confusion_mat, paste0(filepath, filename), row.names = FALSE)
   cat(paste0("Results saved in: ", filepath, filename, "\n"))
-
-  # Measure Performance.
+  
+  cat("Saving classifier performance info...\n")
+  filename <- paste0("/classifier_performance.csv")
+  dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
+  write.csv(performance_details, paste0(filepath, filename), row.names = FALSE)
+  cat(paste0("Results saved in: ", filepath, filename, "\n"))
 
 }
 
