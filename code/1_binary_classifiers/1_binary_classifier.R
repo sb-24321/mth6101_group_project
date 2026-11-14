@@ -1,4 +1,3 @@
-
 # Load the required data and packages ===============================================
 
 source("code/0_load_data.R")
@@ -121,7 +120,6 @@ classify <- function(data, orientation_1, orientation_2, threshold) {
 
   cat(paste0("Results saved in: ", filepath, filename, "\n"))
 
-  return(results)
 }
 
 
