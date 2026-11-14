@@ -29,6 +29,8 @@ confusion_matrix <- function(data, filename){
 
 }
 
+# TODO: Find the other statistics, like rates.
+
 # Main ==================================================================================
 cat("\n### Started running code/1_binary_classifier/2_confusion_matrix.R ###\n")
 
