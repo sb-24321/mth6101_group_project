@@ -31,16 +31,27 @@ confusion_matrix <- function(folder_name){
   )
 
   # Measure Performance.
+  TP <- confusion_mat[1]
+  FP <- confusion_mat[2]
+  FN <- confusion_mat[3]
+  TN <- confusion_mat[4]
+
+  P <- TP + FN
+  N <- FP + TN
+
+  recall <- TP/P
+  precision <- TP/(TP+FP)
+
   performance_details <- data.frame(
-                                    True_Positive_Rate  = numeric(), 
-                                    False_Positive_Rate = numeric(),
-                                    False_Negative_Rate = numeric(),
-                                    True_Negative_Rate  = numeric(),
-                                    Precision = numeric(),
-                                    Negative_predictive_value = numeric(),
-                                    Accuracy   = numeric(),
-                                    F1_score   = numeric(),
-                                    Error_rate = numeric(),
+                                    True_Positive_Rate  = TP/P,
+                                    False_Positive_Rate = FP/N,
+                                    False_Negative_Rate = FN/P,
+                                    True_Negative_Rate  = TN/N,
+                                    Precision = precision,
+                                    Negative_predictive_value = TN/(TN + FN),
+                                    F1_score   = 2*((precision * recall)/(precision + recall)),
+                                    Accuracy   = (TP + TN)/(P + N),
+                                    Error_rate = (FP + FN)/(P + N)
   )
 
 
