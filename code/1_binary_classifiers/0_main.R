@@ -34,7 +34,7 @@ task_i(
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "right_left_threshold_0.5",
-       should_classify = FALSE # Have already classified, and don't want to do that again.
+       should_classify = TRUE # Have already classified, and don't want to do that again.
 )
 
 task_i(
@@ -43,7 +43,7 @@ task_i(
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "left_left_threshold_0.5",
-       should_classify = TRUE # Have already classified, and don't want to do that again.
+       should_classify = TRUE
 )
 
 
