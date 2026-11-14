@@ -4,9 +4,12 @@
 library(dplyr)
 
 # Creates the confusion matrix ===========================================================
-confusion_matrix <- function(data, filename){
+confusion_matrix <- function(folder_name){
 
   # Extract the Y true values and the Y predicted values.
+
+  data <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_name, "/data.csv"))
+
   data <- data%>%
     dplyr::transmute(Y_true, Y_pred)
   
@@ -20,8 +23,8 @@ confusion_matrix <- function(data, filename){
   cat("Saving confusion matrix...\n")
   
   # Save the results to a CSV file
-  filepath <- "./outputs/1_binary_classifier_outputs"
-  filename <- paste0("/", filename, ".csv")
+  filepath <- paste0("./outputs/1_binary_classifier_outputs/", folder_name)
+  filename <- paste0("/confusion_matrix.csv")
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
   write.csv(confusion_mat, paste0(filepath, filename), row.names = FALSE)
 
@@ -30,15 +33,4 @@ confusion_matrix <- function(data, filename){
 }
 
 # TODO: Find the other statistics, like rates.
-
-# Main ==================================================================================
-cat("\n### Started running code/1_binary_classifier/2_confusion_matrix.R ###\n")
-
-left_left <- read.csv("outputs/1_binary_classifier_outputs/left_left_thresh_0.5.csv")
-confusion_matrix(left_left, "left_left_thres_0.5_confusion_matrix")
-
-right_left <- read.csv("outputs/1_binary_classifier_outputs/right_left_thresh_0.5.csv")
-confusion_matrix(right_left, "right_left_thres_0.5_confusion_matrix")
-
-cat("### Finished running .code/1_binary_classifier/2_confusion_matrix.R ###\n")
 

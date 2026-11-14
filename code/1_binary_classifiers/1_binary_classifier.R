@@ -19,7 +19,7 @@ library(stringr)
 # Y_pred: 1 = predicted same turtle, 0 = predicted different turtles.
 
 
-classify <- function(data, orientation_1, orientation_2, threshold) {
+classify <- function(data, orientation_1, orientation_2, threshold, folder_name) {
 
   cat("Comparing", orientation_1, "-", orientation_2, "pairs...\n")
 
@@ -103,12 +103,8 @@ classify <- function(data, orientation_1, orientation_2, threshold) {
   cat("Finished classifying.\n")
 
   # Save the results to a CSV file
-  filepath <- "./outputs/1_binary_classifier_outputs"
-
-  filename <- paste0(
-    "/", orientation_1, "_", orientation_2,
-    "_thresh_", threshold, ".csv"
-  )
+  filepath <- paste0("./outputs/1_binary_classifier_outputs/", folder_name)
+  filename <- "/data.csv"
 
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
 
@@ -123,25 +119,3 @@ classify <- function(data, orientation_1, orientation_2, threshold) {
 }
 
 
-# Main code ==========================================================================
-
-cat("\n### Started running code/1_binary_classifiers/1_binary_classifier.R ###\n")
-
-
-# Run the Left-Left classifier
-LL_results <- classify(
-  features,
-  "left",
-  "left",
-  threshold = 0.5
-)
-
-# Run the Right-Left classifier
-RL_results <- classify(
-  features,
-  "right",
-  "left",
-  threshold = 0.5
-)
-
-cat("\n### Finished running code/1_binary_classifiers/1_binary_classifier.R ###\n")
