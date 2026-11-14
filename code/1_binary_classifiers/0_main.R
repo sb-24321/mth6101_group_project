@@ -16,6 +16,7 @@ task_i <- function(
                    threshold, 
                    folder_name, 
                    should_classify = FALSE){
+
   #' data:            (df)  the dataset to use. Tasks are designed for `features`, 
   #'                        which is the default.
   #' orientation_1:   (str) directions to consider. Either 'right' or 'left'.
