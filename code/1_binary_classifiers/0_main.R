@@ -9,7 +9,21 @@ source("code/1_binary_classifiers/2_confusion_matrix.R")
 # This main function that performs all the individual functions that are implemented in the
 # directory `1_binary_classifiers`.
 
-task_i <- function(data, orientation_1, orientation_2, threshold, folder_name, should_classify){
+task_i <- function(
+                   data = features, 
+                   orientation_1, 
+                   orientation_2, 
+                   threshold, 
+                   folder_name, 
+                   should_classify = FALSE){
+  #' data:            (df)  the dataset to use. Tasks are designed for `features`, 
+  #'                        which is the default.
+  #' orientation_1:   (str) directions to consider. Either 'right' or 'left'.
+  #' orientation_2:   (str) directions to consider. Set to 'left' for the tasks.
+  #' threshold:       (int) the threshold at which to classify at.
+  #' folder_name:     (str) the name of the folder to get and save all the information.
+  #' should_classify:(bool) whether to go through the dataset and find y_true and y_pred.
+  #'                         default to false. (long process, should skip if already done).
 
   if (should_classify){
     classify(
@@ -18,7 +32,8 @@ task_i <- function(data, orientation_1, orientation_2, threshold, folder_name, s
              orientation_2 = orientation_2,
              threshold = threshold,
              folder_name = folder_name
-             )}
+             )
+  }
 
   confusion_matrix(
                    folder_name = folder_name 
@@ -29,12 +44,10 @@ task_i <- function(data, orientation_1, orientation_2, threshold, folder_name, s
 # Call here ==============================================================================
 
 task_i(
-       data = features,
        orientation_1 = 'right',
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "right_left_threshold_0.5",
-       should_classify = TRUE # Have already classified, and don't want to do that again.
 )
 
 task_i(
@@ -43,7 +56,6 @@ task_i(
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "left_left_threshold_0.5",
-       should_classify = TRUE
 )
 
 
