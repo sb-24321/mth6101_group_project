@@ -119,7 +119,7 @@ classify <- function(data, orientation_1, orientation_2, threshold) {
     row.names = FALSE
   )
 
-  cat("Results saved in:", filepath, filename, "\n")
+  cat(paste0("Results saved in: ", filepath, filename, "\n"))
 
   return(results)
 }
