@@ -1,0 +1,2 @@
+"True_Positive_Rate","False_Positive_Rate","False_Negative_Rate","True_Negative_Rate","Precision","Negative_predictive_value","F1_score","Accuracy","Error_rate"
+0.25,0.000768935024990388,0.75,0.99923106497501,0.833333333333333,0.9885888170407,0.384615384615385,0.98788337750852,0.0121166224914805
