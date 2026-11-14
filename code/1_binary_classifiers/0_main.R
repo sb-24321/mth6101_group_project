@@ -23,11 +23,10 @@ task_i <- function(data, orientation_1, orientation_2, threshold, folder_name, s
   confusion_matrix(
                    folder_name = folder_name 
   )
-
-
-
 }
 
+
+# Call here ==============================================================================
 
 task_i(
        data = features,
@@ -36,6 +35,15 @@ task_i(
        threshold = 0.5,
        folder_name = "right_left_threshold_0.5",
        should_classify = FALSE # Have already classified, and don't want to do that again.
+)
+
+task_i(
+       data = features,
+       orientation_1 = 'left',
+       orientation_2 = 'left',
+       threshold = 0.5,
+       folder_name = "left_left_threshold_0.5",
+       should_classify = TRUE # Have already classified, and don't want to do that again.
 )
 
 
