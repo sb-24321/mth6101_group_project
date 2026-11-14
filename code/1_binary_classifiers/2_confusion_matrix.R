@@ -14,23 +14,32 @@ confusion_matrix <- function(folder_name){
     dplyr::transmute(Y_true, Y_pred)
   
   # Creates the confusion matrix.
+  #
+  # ------------------------
+  # #   True    #  False   #
+  # # Positive  # Negative # 
+  # ------------------------
+  # #   False   #   True   #
+  # # Positive  # Negative # 
+  # ------------------------
+  #
+
   cat("Creating confusion matrix...\n")
   confusion_mat <- table(
     Actual = factor(data$Y_true, levels = c(1, 0)),
     Predicted = factor(data$Y_pred, levels = c(1, 0))
   )
 
+ 
   cat("Saving confusion matrix...\n")
-  
-  # Save the results to a CSV file
   filepath <- paste0("./outputs/1_binary_classifier_outputs/", folder_name)
   filename <- paste0("/confusion_matrix.csv")
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
   write.csv(confusion_mat, paste0(filepath, filename), row.names = FALSE)
-
   cat(paste0("Results saved in: ", filepath, filename, "\n"))
+
+  # Measure Performance.
 
 }
 
-# TODO: Find the other statistics, like rates.
 
