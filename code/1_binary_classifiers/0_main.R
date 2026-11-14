@@ -51,7 +51,6 @@ task_i(
 )
 
 task_i(
-       data = features,
        orientation_1 = 'left',
        orientation_2 = 'left',
        threshold = 0.5,
