@@ -1,0 +1,41 @@
+#' Compiles and performs all the analysis created for this week.
+
+# Get all the functions ==================================================================
+source("code/0_load_data.R")
+source("code/1_binary_classifiers/1_binary_classifier.R")
+source("code/1_binary_classifiers/2_confusion_matrix.R")
+
+# Create function task_i =================================================================
+# This main function that performs all the individual functions that are implemented in the
+# directory `1_binary_classifiers`.
+
+task_i <- function(data, orientation_1, orientation_2, threshold, folder_name, should_classify){
+
+  if (should_classify){
+    classify(
+             data = data,
+             orientation_1 = orientation_1,
+             orientation_2 = orientation_2,
+             threshold = threshold,
+             folder_name = folder_name
+             )}
+
+  confusion_matrix(
+                   folder_name = folder_name 
+  )
+
+
+
+}
+
+
+task_i(
+       data = features,
+       orientation_1 = 'right',
+       orientation_2 = 'left',
+       threshold = 0.5,
+       folder_name = "right_left_threshold_0.5",
+       should_classify = FALSE # Have already classified, and don't want to do that again.
+)
+
+
