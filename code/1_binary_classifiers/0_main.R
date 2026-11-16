@@ -6,8 +6,8 @@ source("code/1_binary_classifiers/1_binary_classifier.R")
 source("code/1_binary_classifiers/2_confusion_matrix.R")
 
 # Create function task_i =================================================================
-# This main function that performs all the individual functions that are implemented in the
-# directory `1_binary_classifiers`.
+# This main function interfaces and  performs all the individual functions that are 
+# implemented in the  directory `1_binary_classifiers`.
 
 task_i <- function(
                    data = features, 
