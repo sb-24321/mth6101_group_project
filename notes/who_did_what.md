@@ -3,7 +3,7 @@ A tracker of which group member has performed each task.
 
 ## code/
 
-| File | Author(s)| Description | Outputs |
+| File | Author| Description | Outputs |
 |:--|:--|:--|:--|
 | 0_load_data.R | Sami | When sourced, loads all the datasets into a file | NA |
 
