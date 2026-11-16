@@ -49,6 +49,7 @@ task_i(
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "right_left_threshold_0.5",
+       should_classify = FALSE
 )
 
 task_i(
@@ -56,6 +57,7 @@ task_i(
        orientation_2 = 'left',
        threshold = 0.5,
        folder_name = "left_left_threshold_0.5",
+       should_classify = FALSE
 )
 
 
