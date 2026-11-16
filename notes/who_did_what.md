@@ -1,5 +1,4 @@
 # Who did what
-A tracker of which group member has performed each task.
 
 ## code/
 
