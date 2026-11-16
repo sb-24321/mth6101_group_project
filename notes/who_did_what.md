@@ -9,7 +9,7 @@ A tracker of which group member has performed each task.
 
 ## code/1_binary_classifiers
 
-| File | Author(s)| Description | Outputs |
+| File | Author| Description | Outputs |
 | :--|:--|:--| :--|
 | 0_main.R | Sami | Integrates all sub-tasks performed this week into a singular function. | NA |
 | 1_binary_classifier.R | Malaika | Performs binary classification on the 'features' dataset based on a given threshold for the left-left and right-left pairs of images. | outputs/1_binary_classifier_outputs/*/data.csv |
