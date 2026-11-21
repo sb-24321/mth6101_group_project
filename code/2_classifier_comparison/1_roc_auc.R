@@ -41,7 +41,7 @@ roc_auc <- function(folder_ll, folder_rl){
   
   # Save outputs
   
-  filepath <- "./outputs/2_comparison_outputs"
+  filepath <- paste0("./outputs/2_comparison_outputs/", folder_ll, "_against_", folder_rl)
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
 
   cat("Saving ROC plot...\n")

@@ -3,6 +3,7 @@
 
 # Get all the functions ==================================================================
 source("code/2_classifier_comparison/1_roc_auc.R")
+source("code/1_binary_classifiers/0_main.R")
 
 # Create function task_ii ================================================================
 # This main function interfaces and performs all the individual functions that are
@@ -16,9 +17,7 @@ task_ii <- function(folder_ll, folder_rl) {
   # ROC curves and AUC
 
   results <- roc_auc(folder_ll = folder_ll, folder_rl = folder_rl)
-
-  print(results$auc)
-  print(results$test)
+  print(results)
 
   # Choose T for each classifier (Youden's J)
   best_ll <- coords(results$roc_ll, "best", best.method = "youden",
@@ -26,15 +25,49 @@ task_ii <- function(folder_ll, folder_rl) {
   best_rl <- coords(results$roc_rl, "best", best.method = "youden",
                     ret = c("threshold", "sensitivity", "specificity"))
 
-  print(best_ll)
-  print(best_rl)
+  
+  invisible(list(results = results, best_ll = best_ll, best_rl = best_rl))
 
 }
 
-
 # Call here ==============================================================================
+main <- function(){
 
-task_ii(
-        folder_ll = "left_left_threshold_0.5",
-        folder_rl = "right_left_threshold_0.5"
-)
+  results <- task_ii(
+                     folder_ll = "left_left_threshold_0.5",
+                     folder_rl = "right_left_threshold_0.5"
+  )
+  
+  # Now we will get the two best calculated thresholds, create the data, and then compare
+  # them
+  best_thresh_rl <- results$best_rl$threshold
+  folder_name_rl <- paste0("right_left_threshold_", round(best_thresh_rl, 3))
+
+  task_i(
+         orientation_1 = 'right',
+         orientation_2 = 'left',
+         threshold = best_thresh_rl,
+         folder_name = folder_name_rl,
+         should_classify = FALSE
+  )
+
+  
+  best_thresh_ll <- results$best_ll$threshold
+  folder_name_ll <- paste0("left_left_threshold_", round(best_thresh_ll, 3))
+  task_i(
+         orientation_1 = 'left',
+         orientation_2 = 'left',
+         threshold = best_thresh_ll,
+         folder_name = folder_name_ll,
+         should_classify = FALSE
+  )
+
+  results <- task_ii(
+                     folder_ll = folder_name_ll,
+                     folder_rl = folder_name_rl
+  )
+
+
+}
+
+main()
