@@ -8,20 +8,28 @@ roc_auc <- function(folder_ll, folder_rl){
   ll <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_ll, "/data.csv"))
   rl <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_rl, "/data.csv"))
 
-  
+  cat(paste0("### Testing ", folder_ll, " against ", folder_rl, " ### \n"))
+
   # Build ROC objects.
   
   # levels = c(0, 1): 0 = controls (different turtles), 1 = cases (same turtle)
   # direction = "<": higher similarity means more likely the same turtle
   cat("Building ROC curves...\n")
-  roc_ll <- roc(response = ll$Y_true, predictor = ll$Similarity,
-                levels = c(0, 1), direction = "<")
-  roc_rl <- roc(response = rl$Y_true, predictor = rl$Similarity,
-                levels = c(0, 1), direction = "<")
 
+  #roc_ll <- roc(response = ll$Y_true, predictor = ll$Similarity,
+  #              levels = c(0, 1), direction = "<")
+  #roc_rl <- roc(response = rl$Y_true, predictor = rl$Similarity,
+  #              levels = c(0, 1), direction = "<")
   
-  # AUC with 95% confidence intervals
+  roc_rl <- roc(response = rl$Y_true, predictor = rl$Y_pred,
+                levels = c(0, 1), direction = "<")
   
+  roc_ll <- roc(response = ll$Y_true, predictor = ll$Y_pred,
+                levels = c(0, 1), direction = "<")
+  
+  
+  
+  # AUC with 95% confidence intervals  
   ci_ll <- ci.auc(roc_ll)
   ci_rl <- ci.auc(roc_rl)
 

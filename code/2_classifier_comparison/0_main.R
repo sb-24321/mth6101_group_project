@@ -17,7 +17,6 @@ task_ii <- function(folder_ll, folder_rl) {
   # ROC curves and AUC
 
   results <- roc_auc(folder_ll = folder_ll, folder_rl = folder_rl)
-  print(results)
 
   # Choose T for each classifier (Youden's J)
   best_ll <- coords(results$roc_ll, "best", best.method = "youden",
@@ -32,40 +31,19 @@ task_ii <- function(folder_ll, folder_rl) {
 
 # Call here ==============================================================================
 main <- function(){
-
+  
+  # Testing basic 0.5 thresholds
   results <- task_ii(
                      folder_ll = "left_left_threshold_0.5",
                      folder_rl = "right_left_threshold_0.5"
   )
   
-  # Now we will get the two best calculated thresholds, create the data, and then compare
-  # them
+  # Testing the thresholds given by Youden
   best_thresh_rl <- results$best_rl$threshold
-  folder_name_rl <- paste0("right_left_threshold_", round(best_thresh_rl, 3))
-
-  task_i(
-         orientation_1 = 'right',
-         orientation_2 = 'left',
-         threshold = best_thresh_rl,
-         folder_name = folder_name_rl,
-         should_classify = FALSE
-  )
-
-  
+  folder_name_rl <- paste0("right_left_threshold_", round(best_thresh_rl, 3)) 
   best_thresh_ll <- results$best_ll$threshold
-  folder_name_ll <- paste0("left_left_threshold_", round(best_thresh_ll, 3))
-  task_i(
-         orientation_1 = 'left',
-         orientation_2 = 'left',
-         threshold = best_thresh_ll,
-         folder_name = folder_name_ll,
-         should_classify = FALSE
-  )
-
-  results <- task_ii(
-                     folder_ll = folder_name_ll,
-                     folder_rl = folder_name_rl
-  )
+  folder_name_ll <- paste0("left_left_threshold_", round(best_thresh_ll, 3)) 
+  results <- task_ii(folder_ll = folder_name_ll, folder_rl = folder_name_rl)
 
 
 }
