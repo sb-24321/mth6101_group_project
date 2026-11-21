@@ -41,23 +41,27 @@ task_i <- function(
   )
 }
 
-
 # Call here ==============================================================================
+main <- function(){
+  task_i(
+         orientation_1 = 'right',
+         orientation_2 = 'left',
+         threshold = 0.5,
+         folder_name = "right_left_threshold_0.5",
+         should_classify = FALSE
+  )
 
-task_i(
-       orientation_1 = 'right',
-       orientation_2 = 'left',
-       threshold = 0.5,
-       folder_name = "right_left_threshold_0.5",
-       should_classify = FALSE
-)
+  task_i(
+         orientation_1 = 'left',
+         orientation_2 = 'left',
+         threshold = 0.5,
+         folder_name = "left_left_threshold_0.5",
+         should_classify = FALSE
+  )
 
-task_i(
-       orientation_1 = 'left',
-       orientation_2 = 'left',
-       threshold = 0.5,
-       folder_name = "left_left_threshold_0.5",
-       should_classify = FALSE
-)
+}
+
+# main()
+
 
 
