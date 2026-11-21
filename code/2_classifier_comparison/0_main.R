@@ -2,15 +2,11 @@
 #' comparing the left-left and right-left classifiers using ROC curves and AUC.
 
 # Get all the functions ==================================================================
-source("code/1_binary_classifiers/2_confusion_matrix.R")
 source("code/2_classifier_comparison/1_roc_auc.R")
 
 # Create function task_ii ================================================================
 # This main function interfaces and performs all the individual functions that are
 # implemented in the directory `2_classifier_comparison`.
-#
-# It uses the similarities already saved by task (i), so classify() does not need
-# to be run again.
 
 task_ii <- function(folder_ll, folder_rl) {
 
@@ -18,10 +14,8 @@ task_ii <- function(folder_ll, folder_rl) {
   #' folder_rl: (str) the task (i) folder holding the right-left results.
 
   # ROC curves and AUC
-  results <- roc_auc(
-                     folder_ll = folder_ll,
-                     folder_rl = folder_rl
-                     )
+
+  results <- roc_auc(folder_ll = folder_ll, folder_rl = folder_rl)
 
   print(results$auc)
   print(results$test)
@@ -35,7 +29,6 @@ task_ii <- function(folder_ll, folder_rl) {
   print(best_ll)
   print(best_rl)
 
-  invisible(list(results = results, best_ll = best_ll, best_rl = best_rl))
 }
 
 
