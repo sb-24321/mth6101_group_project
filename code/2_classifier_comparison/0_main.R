@@ -38,7 +38,7 @@ main <- function(){
                      folder_rl = "right_left_threshold_0.5"
   )
   
-  # Testing the thresholds given by Youden
+  # Testing the thresholds given by Youdena (these are NOT optimal)
   best_thresh_rl <- results$best_rl$threshold
   folder_name_rl <- paste0("right_left_threshold_", round(best_thresh_rl, 3)) 
   best_thresh_ll <- results$best_ll$threshold
