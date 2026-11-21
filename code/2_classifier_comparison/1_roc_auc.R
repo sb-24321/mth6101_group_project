@@ -1,18 +1,15 @@
 
 # using ROC curve and AUC value to compare LL and RL classifiers
-
 library(pROC)
 
-roc_auc<-function(folder_11, folder_rl, output_folder = "2_classifier_comparison_outputs"){
+roc_auc <- function(folder_ll, folder_rl){ 
+  # Read the saved similarities (threshold-independent) 
+
+  ll <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_ll, "/data.csv"))
+  rl <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_rl, "/data.csv"))
 
   
-   # Read the saved similarities (threshold-independent)
-  
-ll <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_ll, "/data.csv"))
-rl <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_rl, "/data.csv"))
-
-  
-    # Build ROC objects.
+  # Build ROC objects.
   
   # levels = c(0, 1): 0 = controls (different turtles), 1 = cases (same turtle)
   # direction = "<": higher similarity means more likely the same turtle
@@ -44,7 +41,7 @@ rl <- read.csv(paste0("outputs/1_binary_classifier_outputs/", folder_rl, "/data.
   
   # Save outputs
   
-  filepath <- paste0("./outputs/", output_folder)
+  filepath <- "./outputs/2_comparison_outputs"
   dir.create(filepath, showWarnings = FALSE, recursive = TRUE)
 
   cat("Saving ROC plot...\n")
