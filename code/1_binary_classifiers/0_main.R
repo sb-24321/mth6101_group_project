@@ -59,6 +59,22 @@ main <- function(){
          should_classify = FALSE
   )
 
+  task_i(
+         orientation_1 = 'left',
+         orientation_2 = 'left',
+         threshold = 0.366,
+         folder_name = "left_left_threshold_0.366",
+         should_classify = FALSE 
+  )
+
+  task_i(
+         orientation_1 = 'right',
+         orientation_2 = 'left',
+         threshold = 0.386,
+         folder_name = "right_left_threshold_0.386",
+         should_classify = TRUE
+  )
+
 }
 
 # main()
