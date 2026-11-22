@@ -53,7 +53,32 @@ roc_auc<-function(folder_ll, folder_rl, output_folder = "2_classifier_comparison
        main = "ROC curves: Left-Left vs Right-Left")
   plot(roc_rl, col = "#d62728", lwd = 2, lty = 2, add = TRUE)
 
-  # TODO: ADD INDIVIDUAL CLASSIFIER POINTS
+  # Get the data from the classifiers.
+  
+  folders <- basename(list.dirs("./outputs/1_binary_classifier_outputs/", 
+                                recursive = FALSE, 
+                                full.names = TRUE)
+  )
+
+  for (folder in folders){
+    performance_data <- read.csv(
+                                 paste0(
+                                        "./outputs/1_binary_classifier_outputs/", 
+                                        folder ,"/classifier_performance.csv")
+    )
+
+    points(x = 1- performance_data$False_Positive_Rate,
+           y = performance_data$True_Positive_Rate,
+    )
+
+    text(
+         x = 1 - performance_data$False_Positive_Rate,
+         y = performance_data$True_Positive_Rate,
+         labels = folder,
+         pos = 3,
+         cex = 0.5
+    )
+  }
 
   legend("bottomright",
          legend = c(sprintf("Left-Left (AUC = %.3f)",  auc_table$AUC[1]),

@@ -63,15 +63,31 @@ main <- function(){
          orientation_1 = 'left',
          orientation_2 = 'left',
          threshold = 0.366,
-         folder_name = "left_left_threshold_0.366",
-         should_classify = FALSE 
+         folder_name = "left_left_threshold_0.366_smallest_mse",
+         should_classify = TRUE 
   )
 
   task_i(
          orientation_1 = 'right',
          orientation_2 = 'left',
          threshold = 0.386,
-         folder_name = "right_left_threshold_0.386",
+         folder_name = "right_left_threshold_0.386_smallest_mse",
+         should_classify = TRUE  
+  )
+
+  task_i(
+         orientation_1 = 'left',
+         orientation_2 = 'left',
+         threshold = 0.0837,
+         folder_name = "left_left_threshold_0.0837_youden",
+         should_classify = TRUE 
+  )
+
+  task_i(
+         orientation_1 = 'right',
+         orientation_2 = 'left',
+         threshold = 0.111,
+         folder_name = "right_left_threshold_0.111_youden",
          should_classify = TRUE
   )
 
