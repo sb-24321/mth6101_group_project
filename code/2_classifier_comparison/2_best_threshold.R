@@ -1,10 +1,8 @@
-# TODO:
-#
-# We tried to use Youden's index, which balanced Sensitivity and Specificity but that
-# only gave worse thresholds, this is not for finding the best thresholds
-# So we will brute force it. (this is gonna take a while)
-
 library(dplyr)
+
+# Able to find the best threshold for a given method
+# 
+# mse = Find the thresholds which give the smallest MSE
 
 calculate_mse <- function(y_true, y_pred){
 
@@ -29,7 +27,7 @@ calculate_mse <- function(y_true, y_pred){
 
 
 
-best_threshold <- function(folder_name){
+best_threshold <- function(folder_name, method){
   # This function find the best threshold for the dataset.
   # We will do this by minimising the MSE.
   # We will just brute force ts.
@@ -55,27 +53,29 @@ best_threshold <- function(folder_name){
                         MSE = numeric()
   )
 
-  for (thresh_value in thresh_values){
-    mse <- calculate_mse(y_true = data$Y_true, y_pred = data[,thresh_value])
+  if (method == 'mse'){
+    for (thresh_value in thresh_values){
+      mse <- calculate_mse(y_true = data$Y_true, y_pred = data[,thresh_value])
 
-    results <- rbind(results, 
-                     data.frame(
-                                Threshold = thresh_value,
-                                MSE = mse
-                     )
-    )
+      results <- rbind(results, 
+                       data.frame(
+                                  Threshold = thresh_value,
+                                  MSE = mse
+                       )
+      )
+    }
+
+    min_index <- (which.min(results$MSE))
+    return(results[min_index,])
 
   }
-  
-  #plot(x = results$Threshold, y = results$MSE, type = "l", xlab = 'Thresholds', ylab = 'Mean Square Error')
 
-  min_index <- (which.min(results$MSE))
-  return(results[min_index,])
+  #plot(x = results$Threshold, y = results$MSE, type = "l", xlab = 'Thresholds', ylab = 'Mean Square Error')
 
 }
 
 cat("\n\n### BEST LEFT-LEFT THRESHOLD: ###\n")
-print(best_threshold('left_left_threshold_0.5'))
+print(best_threshold('left_left_threshold_0.5', method = 'mse'))
 
 cat("\n\n### BEST RIGHT-LEFT THRESHOLD: ###\n") 
-print(best_threshold('right_left_threshold_0.5'))
+print(best_threshold('right_left_threshold_0.5', method = 'mse'))
