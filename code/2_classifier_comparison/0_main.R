@@ -32,21 +32,10 @@ task_ii <- function(folder_ll, folder_rl) {
 # Call here ==============================================================================
 main <- function(){
   
-  # Testing basic 0.5 thresholds
-  #results <- task_ii(
-  #                   folder_ll = "left_left_threshold_0.5",
-  #                   folder_rl = "right_left_threshold_0.5"
-  #)
-
   results <- task_ii(
                      "left_left_threshold_0.5",
                      "right_left_threshold_0.5"
   )
-
-  
-
-
-
 
 }
 
