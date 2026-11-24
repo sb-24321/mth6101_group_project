@@ -56,13 +56,7 @@ best_threshold <- function(folder_name, method){
   if (method == 'mse'){
     for (thresh_value in thresh_values){
       mse <- calculate_mse(y_true = data$Y_true, y_pred = data[,thresh_value])
-
-      results <- rbind(results, 
-                       data.frame(
-                                  Threshold = thresh_value,
-                                  MSE = mse
-                       )
-      )
+      results <- rbind(results, data.frame(Threshold = thresh_value, MSE = mse))
     }
 
     min_index <- (which.min(results$MSE))
