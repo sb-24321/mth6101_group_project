@@ -14,17 +14,29 @@ calculate_methods <- function(y_true, y_pred){
 
   
   # Extract values from table
-  TP <- confusion_mat[1]
-  FP <- confusion_mat[2]
-  FN <- confusion_mat[3]
-  TN <- confusion_mat[4]
+  TP <- as.numeric(confusion_mat[1])
+  FP <- as.numeric(confusion_mat[2])
+  FN <- as.numeric(confusion_mat[3])
+  TN <- as.numeric(confusion_mat[4])
   P <- TP + FN
   N <- FP + TN
 
+  Precision <- (TP) / (TP + FP) 
+  Recall <- (TP) / (TP + FN) 
+  
+  MCC_den <- (TP + FP)*(P)*(N)*(TN + FN)
+
   return(list(
-              MSE = ((FP + FN) / (P + N)), # Aim to minimise
-              Sensitivity = (TP / P), # Aim to maximise
-              Specificity = (TN / N), # Aim to maximise
+              # Aim to minimise
+              MSE = ((FP + FN) / (P + N)),
+
+              # Aim to maximise the following
+              Sensitivity = (TP / P), 
+              Specificity = (TN / N),
+              Precision = (TP) / (TP + FP), # Reliability of positive predictions.
+              MCC = (TP * TN - FP * FN)/(sqrt(MCC_den)),
+              F1_score = 2*(Precision * Recall)/(Precision + Recall),
+              Balanced_Accuracy = ((TP / P) + (TN/N))/2
 
               )
   )
@@ -57,23 +69,46 @@ best_threshold <- function(folder_name){
 
   results <- data.frame(
                         Threshold = numeric(),
-                        MSE = numeric()
+                        Stats = numeric()
   )
 
   for (thresh_value in thresh_values){
-    mse <- calculate_methods(y_true = data$Y_true, y_pred = data[,thresh_value])
-    results <- rbind(results, data.frame(Threshold = thresh_value, MSE = mse))
+    threshold_stats <- calculate_methods(y_true = data$Y_true, y_pred = data[,thresh_value])
+    results <- rbind(results, data.frame(Threshold = thresh_value, Stats = threshold_stats))
   }
+  
 
-
-  min_index <- (which.min(results$MSE))
-  return(results[min_index,])
+  
+  cat("\n\n### BEST MSE ###\n")
+  print(results[which.min(results$Stats.MSE), ])
+  cat("\n\n### BEST SENSITIVITY ###\n") 
+  print(results[which.max(results$Stats.Sensitivity), ])
+  cat("\n\n### BEST SPECIFICITY ###\n")
+  print(results[which.max(results$Stats.Specificity), ])
+  cat("\n\n### BEST PRECISION ###\n")
+  print(results[which.max(results$Stats.Precision), ])
+  cat("\n\n### BEST MCC ###\n")
+  print(results[which.max(results$Stats.MCC), ])
+  cat("\n\n### BEST F1 SCORE ###\n")
+  print(results[which.max(results$Stats.F1_score), ])
+  cat("\n\n### BEST BALANCED ACCURACY ###\n")
+  print(results[which.max(results$Stats.Balanced_Accuracy), ])
 
 
 }
 
-cat("\n\n### BEST LEFT-LEFT THRESHOLD: ###\n")
-print(best_threshold('left_left_threshold_0.5'))
+cat("\n\n#################################\n")
+cat("### BEST LEFT-LEFT THRESHOLD: ###\n")
+cat("#################################\n\n")
+best_threshold('left_left_threshold_0.5')
 
 #cat("\n\n### BEST RIGHT-LEFT THRESHOLD: ###\n") 
 #print(best_threshold('right_left_threshold_0.5'))
+
+
+
+# NOTE: DUE TO THE SEVERE IMBALANCE BETWEEN POSITIVE AND NEGATIVE CLASSES, WE SHOULD
+#       PRIORISE THE FOLLOWING STATISTICS:
+#       > MCC (considers all four confusion matrix conclusions)
+#       > F1 Score (balances precision and recall)
+#       > Balanced Accuracy (considers both specificity and specificity)
