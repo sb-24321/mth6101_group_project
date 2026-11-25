@@ -62,6 +62,8 @@ main <- function(){
   )
 
   # Edit from here. Test various thresholds.
+  
+  ## Smallest MSE
 
   task_i(
          orientation_1 = 'left',
@@ -79,6 +81,27 @@ main <- function(){
          should_classify = TRUE  
   )
 
+  ## Best MCC and F1 score
+
+  task_i(
+         orientation_1 = 'left',
+         orientation_2 = 'left',
+         threshold = 0.315,
+         folder_name = "left_left_threshold_0.315_largest_mcc_f1",
+         should_classify = TRUE 
+  )
+
+
+  task_i(
+         orientation_1 = 'right',
+         orientation_2 = 'left',
+         threshold = 0.304,
+         folder_name = "right_left_threshold_0.304_largest_mcc_f1",
+         should_classify = TRUE 
+  )
+
+
+  ## Youden's Index, (balanced accuracy is similar to this)
   task_i(
          orientation_1 = 'left',
          orientation_2 = 'left',
