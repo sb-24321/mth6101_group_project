@@ -43,6 +43,8 @@ task_i <- function(
 
 # Call here ==============================================================================
 main <- function(){
+
+  # LEAVE THE THRESHOLD FOR 0.5 AS THEY ARE.
   task_i(
          orientation_1 = 'right',
          orientation_2 = 'left',
@@ -58,6 +60,8 @@ main <- function(){
          folder_name = "left_left_threshold_0.5",
          should_classify = FALSE
   )
+
+  # Edit from here. Test various thresholds.
 
   task_i(
          orientation_1 = 'left',
