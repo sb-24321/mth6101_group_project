@@ -12,7 +12,7 @@ calculate_methods <- function(y_true, y_pred){
                          Predicted = factor(y_pred, levels = c(1, 0))
   )
 
-  
+
   # Extract values from table
   TP <- as.numeric(confusion_mat[1])
   FP <- as.numeric(confusion_mat[2])
@@ -23,7 +23,7 @@ calculate_methods <- function(y_true, y_pred){
 
   Precision <- (TP) / (TP + FP) 
   Recall <- (TP) / (TP + FN) 
-  
+
   MCC_den <- (TP + FP)*(P)*(N)*(TN + FN)
 
   return(list(
@@ -38,7 +38,7 @@ calculate_methods <- function(y_true, y_pred){
               F1_score = 2*(Precision * Recall)/(Precision + Recall),
               Balanced_Accuracy = ((TP / P) + (TN/N))/2
 
-              )
+  )
   )
 
 }
@@ -76,9 +76,7 @@ best_threshold <- function(folder_name){
     threshold_stats <- calculate_methods(y_true = data$Y_true, y_pred = data[,thresh_value])
     results <- rbind(results, data.frame(Threshold = thresh_value, Stats = threshold_stats))
   }
-  
 
-  
   cat("\n\n### BEST MSE ###\n")
   print(results[which.min(results$Stats.MSE), ])
   cat("\n\n### BEST SENSITIVITY ###\n") 
@@ -94,7 +92,6 @@ best_threshold <- function(folder_name){
   cat("\n\n### BEST BALANCED ACCURACY ###\n")
   print(results[which.max(results$Stats.Balanced_Accuracy), ])
 
-
 }
 
 cat("\n\n#################################\n")
@@ -102,9 +99,11 @@ cat("### BEST LEFT-LEFT THRESHOLD: ###\n")
 cat("#################################\n\n")
 best_threshold('left_left_threshold_0.5')
 
-#cat("\n\n### BEST RIGHT-LEFT THRESHOLD: ###\n") 
-#print(best_threshold('right_left_threshold_0.5'))
 
+cat("\n\n#################################\n")
+cat("### BEST RIGHT-LEFT THRESHOLD: ###\n")
+cat("#################################\n\n")
+best_threshold('right_left_threshold_0.5')
 
 
 # NOTE: DUE TO THE SEVERE IMBALANCE BETWEEN POSITIVE AND NEGATIVE CLASSES, WE SHOULD
