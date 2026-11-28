@@ -1,1 +1,3 @@
+The LLM performed no better than chance and much worse than both cosine-similarity classifiers.
 
+tbc ...
