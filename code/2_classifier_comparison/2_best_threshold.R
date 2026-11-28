@@ -6,6 +6,7 @@ library(dplyr)
 
 calculate_methods <- function(y_true, y_pred){
 
+
   # Create the confusion matrix of this data.
   confusion_mat <- table(
                          Actual = factor(y_true, levels = c(1, 0)),
@@ -24,8 +25,6 @@ calculate_methods <- function(y_true, y_pred){
   Precision <- (TP) / (TP + FP) 
   Recall <- (TP) / (TP + FN) 
 
-  MCC_den <- (TP + FP)*(P)*(N)*(TN + FN)
-
   return(list(
               # Aim to minimise
               MSE = ((FP + FN) / (P + N)),
@@ -34,7 +33,7 @@ calculate_methods <- function(y_true, y_pred){
               Sensitivity = (TP / P), 
               Specificity = (TN / N),
               Precision = (TP) / (TP + FP), # Reliability of positive predictions.
-              MCC = (TP * TN - FP * FN)/(sqrt(MCC_den)),
+              MCC = (TP * TN - FP * FN) / sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN)),
               F1_score = 2*(Precision * Recall)/(Precision + Recall),
               Balanced_Accuracy = ((TP / P) + (TN/N))/2
 
